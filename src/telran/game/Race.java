@@ -4,14 +4,11 @@ import java.util.Random;
 
 public class Race {
 	private int distance;
-
 	private int winner = -1;
 	
 	public Race (int distance) 
 	{
 		this.distance = distance;
-	
-	
 	}
 	public int getWinner() {
 		return winner;

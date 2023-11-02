@@ -17,7 +17,7 @@ public class RaceAppl {
 		
 		InputOutput io = new ConsoleInputOutput();
 		Item[]items = getItems();
-		Menu menu = new Menu("Race Game", items);
+		Menu menu = new Menu("Threads Race Game", items);
 		menu.perform(io);
 
 	}
@@ -30,11 +30,11 @@ public class RaceAppl {
 		return res;
 	}
 	static void startGame(InputOutput io) {
-		int nThreads = io.readInt("Enter number of the runners","Wrong number of the runners",
+		int numberOfThreads = io.readInt("Enter number of the runners","Wrong number of the runners",
 				MIN_THREADS, MAX_THREADS);
 		int distance = io.readInt("Enter distance", "Wrong Distance",MIN_DISTANCE, MAX_DISTANCE);
 		Race race = new Race (distance);
-		Racer[] runners = new Racer[nThreads];
+		Racer[] runners = new Racer[numberOfThreads];
 		startRunners(runners, race);
 		joinRunners(runners);
 		displayWinner(race);
@@ -46,22 +46,23 @@ public class RaceAppl {
 	}
 
 	private static void joinRunners(Racer[] racers) {
-		IntStream.range(0, racers.length).forEach(i -> {
+		for (int i = 0; i < racers.length; i++) {
 			try {
 				racers[i].join();
 			} catch (InterruptedException e) {
 				throw new IllegalStateException();
 			}
-		});
+		}
+		
 		
 	}
 
 	private static void startRunners(Racer[] runners, Race race) {
-		IntStream.range(0, runners.length).forEach(i -> {
+		for (int i = 0; i < runners.length; i++)
+		{
 			runners[i] = new Racer (race, i + 1);
 			runners[i].start();
-		});
-		
+		}
 	}
 
 }
