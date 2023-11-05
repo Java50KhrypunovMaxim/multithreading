@@ -30,18 +30,19 @@ public class PrinterSynchronizationApp {
         int numberInLine = io.readInt("How many numbers to print in one line?", "Wrong. Must be from 1 until 200",
                 MIN_NUMBERS_IN_LINE, MAX_NUMBERS_IN_LINE);
         PrinterThread[] printers = new PrinterThread[numberOfPrinters];
-        printers[0] = new PrinterThread(1, amountNUMBERS, numberInLine);
-        for (int i = 1; i < printers.length; i++) {
+        for (int i = 0; i < numberOfPrinters; i++) {
             printers[i] = new PrinterThread(i + 1, amountNUMBERS, numberInLine);
-            printers[i - 1].setNextPrinter(printers[i]);
-            printers[i - 1].start();
+            if (i > 0) {
+                printers[i - 1].setNextPrinter(printers[i]);
+            }
         }
-        printers[printers.length - 1].setNextPrinter(printers[0]);
-        printers[printers.length - 1].start();
+        printers[numberOfPrinters - 1].setNextPrinter(printers[0]);
+        for (PrinterThread printer : printers) {
+            printer.start();
+        }
         printers[0].interrupt();
         result();
     }
-	
 	
 	private static void result() {
 	System.out.println("Showing the result ");
