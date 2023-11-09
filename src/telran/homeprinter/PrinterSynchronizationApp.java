@@ -1,8 +1,6 @@
 package telran.homeprinter;
 
-import telran.game.Race;
-import telran.game.RaceAppl;
-import telran.game.Racer;
+
 import telran.view.ConsoleInputOutput;
 import telran.view.InputOutput;
 import telran.view.Item;
