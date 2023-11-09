@@ -15,7 +15,6 @@ class Racer extends Thread {
     @Override
     public void run() {
         long startTime = System.currentTimeMillis();
-
         int distance = race.getDistance();
         for (int i = 0; i < distance; i++) {
             try {

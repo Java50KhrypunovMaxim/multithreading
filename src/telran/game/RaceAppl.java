@@ -14,7 +14,6 @@ public class RaceAppl {
     private static final int MIN_DISTANCE = 100;
     private static final int MAX_DISTANCE = 2000;
 
-    private static final Object mutex = new Object(); 
 
     public static void main(String[] args) {
         InputOutput io = new ConsoleInputOutput();
@@ -37,7 +36,7 @@ public class RaceAppl {
         int distance = io.readInt("Enter distance", "Wrong Distance", MIN_DISTANCE, MAX_DISTANCE);
         Race race = new Race(distance);
         Racer[] runners = new Racer[numberOfThreads];
-        displayResultsHeader();
+        displayResultsHeader(io);
         startRunners(runners, race);
         joinRunners(runners);
         displayResults(runners);
@@ -53,8 +52,8 @@ public class RaceAppl {
         }
     }
 
-    private static void displayResultsHeader() {
-        System.out.println("Place\t\tThread Number\t\tTime (ms)");
+    private static void displayResultsHeader(InputOutput io) {
+       io.writeLine("Place\t\tThread Number\t\tTime (ms)");
     }
 
     private static void joinRunners(Racer[] racers) {
